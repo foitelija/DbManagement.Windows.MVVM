@@ -5,8 +5,60 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Wpf_MVVM.View"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Управлние БД отделами" Height="450" Width="800">
     <Grid>
-
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="50" />
+        </Grid.RowDefinitions>
+        <TabControl>
+            <TabItem Name="UsersTab">
+                <TabItem.Header>
+                    <TextBlock Text="Персонал"></TextBlock>
+                </TabItem.Header>
+                <ListView>
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Имя"/>
+                            <GridViewColumn Header="Фамилия"/>
+                            <GridViewColumn Header="Телефон"/>
+                            <GridViewColumn Header="Зарплата"/>
+                            <GridViewColumn Header="Должность"/>
+                            <GridViewColumn Header="Отдел"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </TabItem>
+            <TabItem Name="PositionTab">
+                <TabItem.Header>
+                    <TextBlock Text="Должность"></TextBlock>
+                </TabItem.Header>
+                <ListView>
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Имя" />
+                            <GridViewColumn Header="Зарплата" />
+                            <GridViewColumn Header="Кол-во сотрудников" />
+                            <GridViewColumn Header="Макс кол-во" />
+                            <GridViewColumn Header="Отдел" />
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </TabItem>
+            <TabItem Name="DepartmentTab">
+                <TabItem.Header>
+                    <TextBlock Text="Отдел"></TextBlock>
+                </TabItem.Header>
+                <ListView>
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Название" />
+                            <GridViewColumn Header="Кол-во сотрудников" />
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </TabItem>
+        </TabControl>
+        
     </Grid>
 </Window>
