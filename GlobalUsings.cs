@@ -15,3 +15,5 @@ global using System.Windows.Shapes;
 global using System.ComponentModel.DataAnnotations.Schema;
 global using Microsoft.EntityFrameworkCore;
 global using Wpf_MVVM.Models;
+global using Wpf_MVVM.Data;
+global using System.Linq;
