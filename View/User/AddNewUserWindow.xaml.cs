@@ -22,6 +22,8 @@ namespace Wpf_MVVM.View
         public AddNewUserWindow()
         {
             InitializeComponent();
+            DataContext = new DataManage();
+
         }
     }
 }

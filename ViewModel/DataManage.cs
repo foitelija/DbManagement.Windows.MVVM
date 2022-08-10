@@ -46,6 +46,103 @@ namespace Wpf_MVVM.ViewModel
             window.ShowDialog();
         }
 
+        #region КОМАНДЫ ДЛЯ ДОБАВЛЕНИЯ
+        public string? DepartmentName { get; set; } // свойство для отдела
+
+        //свойства для должности
+        public string? PositionName { get; set; }
+        public decimal PositionSalary { get; set; }
+        public int PositionMaxNumber { get; set; }
+        public Department? PostionDepartment { get; set; }
+
+        //свойства для сотрудников
+        public string? Username { get; set; }
+        public string? Usersurname { get; set; }
+        public Position? userPosition { get; set; }
+
+        private RelayCommands addNewDepartment;
+        public RelayCommands AddNewDepartment
+        {
+            get
+            {
+                return addNewDepartment ?? new RelayCommands(obj =>
+                {
+                    Window wnd = obj as Window;
+                    string resultStr = "";
+                    if (DepartmentName == null || DepartmentName.Replace(" ", "").Length == 0)
+                    {
+                        SetRedBlockControll(wnd, "NameBlock");
+                    }
+                    else
+                    {
+                        resultStr = DatabaseCommands.CreateDepartment(DepartmentName);
+                        UpdateAllDatas();
+                        ShowMessageToUser(resultStr);
+                        SetNullValues();
+                        wnd.Close();
+                    }
+                });
+            }
+        }
+
+        private RelayCommands addNewPosition;
+        public RelayCommands AddNewPosition
+        {
+            get
+            {
+                return addNewPosition ?? new RelayCommands(obj =>
+                {
+                    Window wnd = obj as Window;
+                    string resultStr = "";
+                    if (PositionName == null)
+                    {
+                        SetRedBlockControll(wnd, "NameBlock");
+                    }
+                    if(PositionSalary == 0)
+                    {
+                        SetRedBlockControll(wnd, "SalaryBlock");
+                    }
+                    else
+                    {
+                        resultStr = DatabaseCommands.CreatePosition(PositionName, PositionSalary, PositionMaxNumber, PostionDepartment);
+                        UpdateAllDatas();
+                        ShowMessageToUser(resultStr);
+                        SetNullValues();
+                        wnd.Close();
+                    }
+                });
+            }
+        }
+
+        private RelayCommands addNewUser;
+        public RelayCommands AddNewUser
+        {
+            get
+            {
+                return addNewUser ?? new RelayCommands(obj =>
+                {
+                    Window wnd = obj as Window;
+                    string resultStr = "";
+                    if(Usersurname == null || Username == null)
+                    {
+                        SetRedBlockControll(wnd, "UserNameBlock");
+                    }
+                    else
+                    {
+                        resultStr = DatabaseCommands.CreateUser(Username, Usersurname, userPosition);
+                        UpdateAllDatas();
+                        ShowMessageToUser(resultStr);
+                        SetNullValues();
+                        wnd.Close();
+                    }
+                });
+            }
+        }
+
+        #endregion
+
+
+
         #region КОМАНДЫ ДЛЯ ОТКРЫТИЯ ОКОН
         private RelayCommands openAddDapartment;
         public RelayCommands OpenAddDepartments
@@ -121,6 +218,69 @@ namespace Wpf_MVVM.ViewModel
             SetCenterAndOpen(editPositionWindow);
         }
         #endregion
+
+
+        #region ОБНОВЛЕНИЕ ДАННЫХ
+
+        private void SetNullValues()
+        {
+            // для пользователя
+            Username = Usersurname = null;
+            userPosition = null;
+            //для  должности
+            PositionName = null;
+            PostionDepartment = null;
+            PositionSalary = PositionMaxNumber = 0;
+            //для отдела
+            DepartmentName = null;
+        }
+
+        private void UpdateAllDatas()
+        {
+            UpdateAllDepartments();
+            UpdateAllPositions();
+            UpdateAllUsers();
+        }
+
+        private void UpdateAllDepartments()
+        {
+            AllDepartments = DatabaseCommands.GetDepartments();
+            MainWindow.AllDepartments.ItemsSource = null;
+            MainWindow.AllDepartments.Items.Clear();
+            MainWindow.AllDepartments.ItemsSource = AllDepartments;
+            MainWindow.AllDepartments.Items.Refresh();
+        }
+
+        private void UpdateAllPositions()
+        {
+            AllPositions = DatabaseCommands.GetPositions();
+            MainWindow.AllPostions.Items.Refresh();
+        }
+
+        private void UpdateAllUsers()
+        {
+            AllUsers = DatabaseCommands.GetUsers();
+            MainWindow.AllUsers.ItemsSource = null;
+            MainWindow.AllUsers.Items.Clear();
+            MainWindow.AllUsers.ItemsSource = AllUsers;
+            MainWindow.AllUsers.Items.Refresh();
+        }
+
+        #endregion
+
+
+
+
+        private void SetRedBlockControll(Window wnd, string blockName)
+        {
+            Control block = wnd.FindName(blockName) as Control;
+            block.BorderBrush = Brushes.Red;
+        }
+        private void ShowMessageToUser(string message)
+        {
+            MessageBoxView messageBoxView = new MessageBoxView(message);
+            SetCenterAndOpen(messageBoxView);
+        }
 
         public void NotifyPropertyChanged(String propertyName)
         {

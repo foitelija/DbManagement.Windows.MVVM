@@ -16,15 +16,19 @@
                 <TabItem.Header>
                     <TextBlock Text="Персонал"></TextBlock>
                 </TabItem.Header>
-                <ListView ItemsSource="{Binding AllUsers}">
+                <ListView x:Name="ViewAllUsers" ItemsSource="{Binding AllUsers}">
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Header="Имя"/>
-                            <GridViewColumn Header="Фамилия"/>
-                            <GridViewColumn Header="Телефон"/>
-                            <GridViewColumn Header="Зарплата"/>
-                            <GridViewColumn Header="Должность"/>
-                            <GridViewColumn Header="Отдел"/>
+                            <GridViewColumn Header="Имя"
+                                            DisplayMemberBinding="{Binding Path=Name}" />
+                            <GridViewColumn Header="Фамилия"
+                                            DisplayMemberBinding="{Binding Path=Surname}" />
+                            <GridViewColumn Header="Зарплата"
+                                            DisplayMemberBinding="{Binding Path=Position.Salary}" />
+                            <GridViewColumn Header="Должность" 
+                                            DisplayMemberBinding="{Binding Path=Position.Name}" />
+                            <GridViewColumn Header="Отдел"
+                                            DisplayMemberBinding="{Binding Path=Position.Department.Name}" />
                         </GridView>
                     </ListView.View>
                 </ListView>
@@ -33,14 +37,19 @@
                 <TabItem.Header>
                     <TextBlock Text="Должность"></TextBlock>
                 </TabItem.Header>
-                <ListView ItemsSource="{Binding AllPositions}">
+                <ListView x:Name="ViewAllPositions" ItemsSource="{Binding AllPositions}">
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Header="Имя" />
-                            <GridViewColumn Header="Зарплата" />
-                            <GridViewColumn Header="Кол-во сотрудников" />
-                            <GridViewColumn Header="Макс кол-во" />
-                            <GridViewColumn Header="Отдел" />
+                            <GridViewColumn Header="Имя" 
+                                           DisplayMemberBinding="{Binding Path=Name}" />
+                            <GridViewColumn Header="Зарплата" 
+                                           DisplayMemberBinding="{Binding Path=Salary}" />
+                            <GridViewColumn Header="Кол-во сотрудников" 
+                                           DisplayMemberBinding="{Binding Path=Users.Count}" />
+                            <GridViewColumn Header="Макс кол-во" 
+                                           DisplayMemberBinding="{Binding Path=MaxNumber}"/>
+                            <GridViewColumn Header="Отдел" 
+                                           DisplayMemberBinding="{Binding Path=Department.Name}" />
                         </GridView>
                     </ListView.View>
                 </ListView>
@@ -49,10 +58,10 @@
                 <TabItem.Header>
                     <TextBlock Text="Отдел"></TextBlock>
                 </TabItem.Header>
-                <ListView ItemsSource="{Binding AllDepartments}">
+                <ListView x:Name="ViewAllDepartments" ItemsSource="{Binding AllDepartments}">
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Header="Название" />
+                            <GridViewColumn Header="Название" DisplayMemberBinding="{Binding Path=Name}" />
                             <GridViewColumn Header="Кол-во сотрудников" />
                         </GridView>
                     </ListView.View>

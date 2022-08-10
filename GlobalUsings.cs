@@ -22,6 +22,4 @@ global using Wpf_MVVM.View.User;
 global using Wpf_MVVM.View.Department;
 global using Wpf_MVVM.View.Position;
 global using Wpf_MVVM.View.CustomMessageBox;
-global using System.Linq;
-global using System.Windows.Input;
 global using System.ComponentModel;

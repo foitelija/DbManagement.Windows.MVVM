@@ -96,7 +96,7 @@
                     };
                     db.Users.Add(user);
                     db.SaveChanges();
-                    result = user.ToString();
+                    result = "Добавлено!";
                 }
             }
             return result;

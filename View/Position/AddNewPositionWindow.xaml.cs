@@ -22,6 +22,8 @@ namespace Wpf_MVVM.View
         public AddNewPositionWindow()
         {
             InitializeComponent();
+            DataContext = new DataManage();
+
         }
     }
 }

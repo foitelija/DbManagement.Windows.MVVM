@@ -19,9 +19,15 @@ namespace Wpf_MVVM.View.CustomMessageBox
     /// </summary>
     public partial class MessageBoxView : Window
     {
-        public MessageBoxView()
+        public MessageBoxView(string text)
         {
             InitializeComponent();
+            MessageText.Text = text;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }
