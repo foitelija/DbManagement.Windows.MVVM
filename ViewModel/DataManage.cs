@@ -33,7 +33,7 @@ namespace Wpf_MVVM.ViewModel
             get { return allUsers; }
             set
             {
-                AllUsers = value;
+                allUsers = value;
                 NotifyPropertyChanged("AllUsers");
             }
         }
@@ -225,7 +225,8 @@ namespace Wpf_MVVM.ViewModel
         private void SetNullValues()
         {
             // для пользователя
-            Username = Usersurname = null;
+            Username = null;
+            Usersurname = null;
             userPosition = null;
             //для  должности
             PositionName = null;
@@ -254,7 +255,10 @@ namespace Wpf_MVVM.ViewModel
         private void UpdateAllPositions()
         {
             AllPositions = DatabaseCommands.GetPositions();
-            MainWindow.AllPostions.Items.Refresh();
+            MainWindow.AllPositions.ItemsSource = null;
+            MainWindow.AllPositions.Items.Clear();
+            MainWindow.AllPositions.ItemsSource= AllPositions;
+            MainWindow.AllPositions.Items.Refresh();
         }
 
         private void UpdateAllUsers()
