@@ -19,9 +19,14 @@ namespace Wpf_MVVM.View.User
     /// </summary>
     public partial class EditUserWindow : Window
     {
-        public EditUserWindow()
+        public EditUserWindow(Models.User userToEdit)
         {
             InitializeComponent();
+            DataContext = new DataManage();
+            DataManage.selectedUser = userToEdit;
+            DataManage.Usersurname = userToEdit.Name;
+            DataManage.Usersurname = userToEdit.Surname;
+            //DataManage.userPosition = userToEdit.Position;
         }
     }
 }

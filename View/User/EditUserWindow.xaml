@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Wpf_MVVM.View.User"
         mc:Ignorable="d"
-        Title="Изменить пользователя" Height="300" Width="300">
+        Title="Изменить пользователя" Height="300" Width="300" Name="EditUserWnd">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition />
@@ -16,14 +16,15 @@
                     VerticalAlignment="Center"
                     Width="200">
             <TextBlock Text="Имя" />
-            <TextBox Text=""/>
+            <TextBox Text="{Binding Username}">
+            </TextBox>
             <TextBlock Text="Фамилия" />
-            <TextBox Text=""/>
+            <TextBox Text="{Binding Usersurname}"/>
             <TextBlock Text="Телефон" />
             <TextBox Text=""/>
             <TextBlock Text="Должность" />
-            <ComboBox />
+            <ComboBox ItemsSource="{Binding AllPositions}" SelectedItem="{Binding userPosition}" DisplayMemberPath="Name" ></ComboBox>
         </StackPanel>
-        <Button Grid.Row="1" Content="Изменить" />
+        <Button Grid.Row="1" Content="Изменить" Command="{Binding EditUser}" CommandParameter="{Binding ElementName=EditUserWnd}" />
     </Grid>
 </Window>

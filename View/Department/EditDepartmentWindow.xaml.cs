@@ -22,6 +22,8 @@ namespace Wpf_MVVM.View.Department
         public EditDepartmentWindow()
         {
             InitializeComponent();
+            DataContext = new DataManage();
+
         }
     }
 }

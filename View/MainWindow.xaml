@@ -18,7 +18,7 @@
                 </TabItem.Header>
                 <TabItem.ContextMenu>
                     <ContextMenu>
-                        <MenuItem Header="Редактировать" />
+                        <MenuItem Header="Редактировать" Command="{Binding EditItems}" />
                         <MenuItem Header="Удалить" Command="{Binding Delete}" />
                     </ContextMenu>
                 </TabItem.ContextMenu>
@@ -45,7 +45,7 @@
                 </TabItem.Header>
                 <TabItem.ContextMenu>
                     <ContextMenu>
-                        <MenuItem Header="Редактировать" />
+                        <MenuItem Header="Редактировать" Command="{Binding EditItems}" />
                         <MenuItem Header="Удалить" Command="{Binding Delete}" />
                     </ContextMenu>
                 </TabItem.ContextMenu>
@@ -72,7 +72,7 @@
                 </TabItem.Header>
                 <TabItem.ContextMenu>
                     <ContextMenu>
-                        <MenuItem Header="Редактировать" />
+                        <MenuItem Header="Редактировать" Command="{Binding EditItems}" />
                         <MenuItem Header="Удалить" Command="{Binding Delete}" />
                     </ContextMenu>
                 </TabItem.ContextMenu>

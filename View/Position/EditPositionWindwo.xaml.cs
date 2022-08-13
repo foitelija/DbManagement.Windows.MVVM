@@ -22,6 +22,8 @@ namespace Wpf_MVVM.View.Position
         public EditPositionWindwo()
         {
             InitializeComponent();
+            DataContext = new DataManage();
+
         }
     }
 }

@@ -40,9 +40,9 @@ namespace Wpf_MVVM.ViewModel
 
         //свойства для выделенных элементов
         public TabItem selectedTabItem { get; set; }
-        public User selectedUser { get; set; }
-        public Position selectedPosition { get; set; }
-        public Department selectedDepartment { get; set; }
+        public static User selectedUser { get; set; }
+        public static Position selectedPosition { get; set; }
+        public static Department selectedDepartment { get; set; }
 
         private void SetCenterAndOpen(Window window)
         {
@@ -52,18 +52,18 @@ namespace Wpf_MVVM.ViewModel
         }
 
         #region КОМАНДЫ ДЛЯ ДОБАВЛЕНИЯ
-        public string? DepartmentName { get; set; } // свойство для отдела
+        public static string? DepartmentName { get; set; } // свойство для отдела
 
         //свойства для должности
-        public string? PositionName { get; set; }
-        public decimal PositionSalary { get; set; }
-        public int PositionMaxNumber { get; set; }
-        public Department? PostionDepartment { get; set; }
+        public static string? PositionName { get; set; }
+        public static decimal PositionSalary { get; set; }
+        public static int PositionMaxNumber { get; set; }
+        public static Department? PostionDepartment { get; set; }
 
         //свойства для сотрудников
-        public string? Username { get; set; }
-        public string? Usersurname { get; set; }
-        public Position? userPosition { get; set; }
+        public static string? Username { get; set; }
+        public static string? Usersurname { get; set; }
+        public static Position? userPosition { get; set; }
 
         private RelayCommands addNewDepartment;
         public RelayCommands AddNewDepartment
@@ -209,9 +209,9 @@ namespace Wpf_MVVM.ViewModel
             EditDepartmentWindow  editDepartmentWindow = new EditDepartmentWindow();
             SetCenterAndOpen(editDepartmentWindow);
         }
-        private void OpenEditUserWin()
+        private void OpenEditUserWin(User user)
         {
-            EditUserWindow editUserWindow = new EditUserWindow();
+            EditUserWindow editUserWindow = new EditUserWindow(user);
             SetCenterAndOpen(editUserWindow);
         }
         private void OpenEditPosWin()
@@ -304,6 +304,103 @@ namespace Wpf_MVVM.ViewModel
                     //обновить
                     SetNullValues();
                     ShowMessageToUser(resultStr);
+                });
+            }
+        }
+        #endregion
+
+        #region РЕДАКТИРОВАНИЕ
+
+        private RelayCommands editUser;
+        public RelayCommands EditUser
+        {
+            get
+            {
+                return editUser ?? new RelayCommands(obj =>
+                {
+                    Window window = obj as Window;
+                    string resultStr = "Сотрудник не выбран.";
+                    string noPositionStr = "Должность не выбрана.";
+
+                    if(selectedUser != null && userPosition != null)
+                    {
+                        resultStr = DatabaseCommands.EditUser(selectedUser);
+
+                        UpdateAllDatas();
+                        SetNullValues();
+                        ShowMessageToUser(resultStr);
+                        window.Close();
+                    }
+                });
+            }
+        }
+
+
+        private RelayCommands editPos;
+        public RelayCommands EditPos
+        {
+            get
+            {
+                return editPos ?? new RelayCommands(obj =>
+                {
+                    Window window = obj as Window;
+                    string result = "Не выбрана позиция";
+                    if(selectedPosition != null)
+                    {
+                        result = DatabaseCommands.EditPosition(selectedPosition);
+                        UpdateAllDatas();
+                        SetNullValues();
+                        ShowMessageToUser(result);
+                        window.Close();
+                    }
+                });
+            }
+        }
+
+
+        private RelayCommands editDep;
+        public RelayCommands EditDep
+        {
+            get
+            {
+                return editDep ?? new RelayCommands(obj =>
+                {
+                    Window window = obj as Window;
+                    string result = "Не выбран отдел";
+                    if(selectedDepartment != null)
+                    {
+                        result = DatabaseCommands.EditDepartment(selectedDepartment);
+                        UpdateAllDatas();
+                        SetNullValues();
+                        ShowMessageToUser(result);
+                        window.Close();
+                    }
+                });
+            }
+        }
+
+        private RelayCommands editItems;
+        public RelayCommands EditItems
+        {
+            get
+            {
+                return editItems ?? new RelayCommands(obj =>
+                {
+                    //если сотрудник
+                    if (selectedTabItem.Name == "UsersTab" && selectedUser != null)
+                    {
+                        OpenEditUserWin(selectedUser);
+                    }
+                    //если должность
+                    else if (selectedTabItem.Name == "PositionTab" && selectedPosition != null)
+                    {
+                        OpenEditPosWin();
+                    }
+                    //если отдел
+                    else if (selectedTabItem.Name == "DepartmentTab" && selectedDepartment != null)
+                    {
+                        OpenEditDepartmentWin();
+                    }
                 });
             }
         }
