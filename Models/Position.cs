@@ -10,5 +10,23 @@
         public List<User> Users { get; set; }
         public int DepartmentId { get; set; }
         public Department Department { get; set; }
+
+        [NotMapped]
+        public Department PositionDepartment
+        {
+            get
+            {
+                return DatabaseCommands.GetDepartmentId(DepartmentId);
+            }
+        }
+
+        [NotMapped]
+        public List<User> PositionUsers
+        {
+            get
+            {
+                return DatabaseCommands.GetAllUserByPosId(Id);
+            }
+        }
     }
 }

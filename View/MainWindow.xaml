@@ -24,11 +24,11 @@
                             <GridViewColumn Header="Фамилия"
                                             DisplayMemberBinding="{Binding Path=Surname}" />
                             <GridViewColumn Header="Зарплата"
-                                            DisplayMemberBinding="{Binding Path=Position.Salary}" />
+                                            DisplayMemberBinding="{Binding Path=UserPosition.Salary}" />
                             <GridViewColumn Header="Должность" 
-                                            DisplayMemberBinding="{Binding Path=Position.Name}" />
+                                            DisplayMemberBinding="{Binding Path=UserPosition.Name}" />
                             <GridViewColumn Header="Отдел"
-                                            DisplayMemberBinding="{Binding Path=Position.Department.Name}" />
+                                            DisplayMemberBinding="{Binding Path=UserPosition.PositionDepartment.Name}" />
                         </GridView>
                     </ListView.View>
                 </ListView>
@@ -45,11 +45,11 @@
                             <GridViewColumn Header="Зарплата" 
                                            DisplayMemberBinding="{Binding Path=Salary}" />
                             <GridViewColumn Header="Кол-во сотрудников" 
-                                           DisplayMemberBinding="{Binding Path=Users.Count}" />
+                                           DisplayMemberBinding="{Binding Path=PositionUsers.Count}" />
                             <GridViewColumn Header="Макс кол-во" 
                                            DisplayMemberBinding="{Binding Path=MaxNumber}"/>
                             <GridViewColumn Header="Отдел" 
-                                           DisplayMemberBinding="{Binding Path=Department.Name}" />
+                                           DisplayMemberBinding="{Binding Path=PositionDepartment.Name}" />
                         </GridView>
                     </ListView.View>
                 </ListView>
@@ -62,7 +62,7 @@
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="Название" DisplayMemberBinding="{Binding Path=Name}" />
-                            <GridViewColumn Header="Кол-во сотрудников" />
+                            <GridViewColumn Header="Кол-во сотрудников" DisplayMemberBinding="{Binding Path=DepartmentPositions.Count}" />
                         </GridView>
                     </ListView.View>
                 </ListView>

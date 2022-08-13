@@ -185,5 +185,45 @@
             }
             return result;
         }
+
+        //получение должностей по ID
+        public static Position GetPositionId(int Id)
+        {
+            using(DataContext context = new DataContext())
+            {
+                Position position = context.Positions.FirstOrDefault(p => p.Id == Id);
+                return position;
+            }
+        }
+
+        //получение отдела по ID
+        public static Department GetDepartmentId(int Id)
+        {
+            using(DataContext data = new DataContext())
+            {
+                Department department = data.Departments.FirstOrDefault(dp => dp.Id == Id);
+                return department;
+            }
+        }
+
+        //получение всех юзеров по ID должности
+        public static List<User> GetAllUserByPosId(int id)
+        {
+            using (DataContext context = new DataContext())
+            {
+                List<User> users = (from user in GetUsers() where user.PositionId == id select user).ToList();
+                return users;
+            }
+        }
+
+        //получение всех должностей по ID отдела
+        public static List<Position> GetAllPosByDepId(int id)
+        {
+            using (DataContext context = new DataContext())
+            {
+                List<Position> positions = (from position in GetPositions() where position.DepartmentId == id select position).ToList();
+                return positions;
+            }
+        }
     }
 }
