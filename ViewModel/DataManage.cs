@@ -38,6 +38,11 @@ namespace Wpf_MVVM.ViewModel
             }
         }
 
+        //свойства для выделенных элементов
+        public TabItem selectedTabItem { get; set; }
+        public User selectedUser { get; set; }
+        public Position selectedPosition { get; set; }
+        public Department selectedDepartment { get; set; }
 
         private void SetCenterAndOpen(Window window)
         {
@@ -142,7 +147,6 @@ namespace Wpf_MVVM.ViewModel
         #endregion
 
 
-
         #region КОМАНДЫ ДЛЯ ОТКРЫТИЯ ОКОН
         private RelayCommands openAddDapartment;
         public RelayCommands OpenAddDepartments
@@ -180,8 +184,6 @@ namespace Wpf_MVVM.ViewModel
             }
         }
         #endregion
-
-
 
 
         #region МЕТОДЫ ДЛЯ ОТКРЫТИЯ ОКОН
@@ -272,7 +274,40 @@ namespace Wpf_MVVM.ViewModel
 
         #endregion
 
-
+        #region УДАЛЕНИЕ ДАННЫХ
+        private RelayCommands deleteItem;
+        public RelayCommands Delete
+        {
+            get
+            {
+                return deleteItem ?? new RelayCommands(obj =>
+                {
+                    string resultStr = "Ничего не выбрано.";
+                    //если сотрудник
+                    if(selectedTabItem.Name == "UsersTab" && selectedUser != null)
+                    {
+                        resultStr = DatabaseCommands.DeleteUser(selectedUser);
+                        UpdateAllDatas();
+                    }
+                    //если должность
+                    else if (selectedTabItem.Name == "PositionTab" && selectedPosition != null)
+                    {
+                        resultStr = DatabaseCommands.DeletePosition(selectedPosition);
+                        UpdateAllDatas();
+                    }
+                    //если отдел
+                    else if (selectedTabItem.Name == "DepartmentTab" && selectedDepartment != null)
+                    {
+                        resultStr = DatabaseCommands.DeleteDepartment(selectedDepartment);
+                        UpdateAllDatas();
+                    }
+                    //обновить
+                    SetNullValues();
+                    ShowMessageToUser(resultStr);
+                });
+            }
+        }
+        #endregion
 
 
         private void SetRedBlockControll(Window wnd, string blockName)

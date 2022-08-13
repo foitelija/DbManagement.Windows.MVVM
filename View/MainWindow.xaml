@@ -5,18 +5,24 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Wpf_MVVM.View"
         mc:Ignorable="d"
-        Title="Управлние БД отделами" Height="450" Width="800">
+        Title="Управление БД отделами" Height="450" Width="800">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition />
             <RowDefinition Height="50" />
         </Grid.RowDefinitions>
-        <TabControl>
+        <TabControl SelectedItem="{Binding selectedTabItem}">
             <TabItem Name="UsersTab">
                 <TabItem.Header>
                     <TextBlock Text="Персонал"></TextBlock>
                 </TabItem.Header>
-                <ListView x:Name="ViewAllUsers" ItemsSource="{Binding AllUsers}">
+                <TabItem.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Редактировать" />
+                        <MenuItem Header="Удалить" Command="{Binding Delete}" />
+                    </ContextMenu>
+                </TabItem.ContextMenu>
+                <ListView x:Name="ViewAllUsers" ItemsSource="{Binding AllUsers}" SelectedItem="{Binding selectedUser}">
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="Имя"
@@ -37,7 +43,13 @@
                 <TabItem.Header>
                     <TextBlock Text="Должность"></TextBlock>
                 </TabItem.Header>
-                <ListView x:Name="ViewAllPositions" ItemsSource="{Binding AllPositions}">
+                <TabItem.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Редактировать" />
+                        <MenuItem Header="Удалить" Command="{Binding Delete}" />
+                    </ContextMenu>
+                </TabItem.ContextMenu>
+                <ListView x:Name="ViewAllPositions" ItemsSource="{Binding AllPositions}" SelectedItem="{Binding selectedPosition}">
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="Имя" 
@@ -58,7 +70,13 @@
                 <TabItem.Header>
                     <TextBlock Text="Отдел"></TextBlock>
                 </TabItem.Header>
-                <ListView x:Name="ViewAllDepartments" ItemsSource="{Binding AllDepartments}">
+                <TabItem.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Редактировать" />
+                        <MenuItem Header="Удалить" Command="{Binding Delete}" />
+                    </ContextMenu>
+                </TabItem.ContextMenu>
+                <ListView x:Name="ViewAllDepartments" ItemsSource="{Binding AllDepartments}" SelectedItem="selectedDepartment">
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="Название" DisplayMemberBinding="{Binding Path=Name}" />
